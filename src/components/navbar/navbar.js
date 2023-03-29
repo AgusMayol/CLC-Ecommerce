@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline'
 import CartWidget from './CartWidget'
 import logo from '../../CLC_Logo.png'
-import Categorias from './Categorias'
+import Categorias from './categorias'
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
