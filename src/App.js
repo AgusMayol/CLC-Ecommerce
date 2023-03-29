@@ -1,14 +1,19 @@
-import Navbar from './components/navbar/navbar';
-import Products from './components/products/products';
-import ItemListContainer from './components/navbar/ItemListContainer';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Navbar from './components/navbar/Navbar'
+import ItemListContainer from './components/products/ItemListContainer';
+import ItemDetailContainer from './components/products/ItemDetailContainer';
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <ItemListContainer greeting={"Bienvenidos a TailBreeze"} />
-      <Products />
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<ItemListContainer greeting={"CLC Automation"} />} />
+          <Route path="/category/:categoryId" element={<ItemListContainer greeting={'Productos filtrados por categoria'} />} />
+          <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

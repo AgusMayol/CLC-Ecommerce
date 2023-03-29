@@ -1,56 +1,45 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
+import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { Dialog, Popover } from '@headlessui/react'
 import {
-    ArrowPathIcon,
     Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
-    SquaresPlusIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-import CartWidget from './cartwidget'
-
-const products = [
-    { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-    { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-    { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-    { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-    { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-]
-const callsToAction = [
-    { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-    { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+import CartWidget from './CartWidget'
+import logo from '../../CLC_Logo.png'
+import Categorias from './Categorias'
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     return (
-        <header className="bg-white">
-            <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <header className="bg-white shadow fixed left-0 top-0 w-full z-10">
+            <nav className="flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
 
                 <div className="flex">
-                    <a href="#" className="-m-1.5 p-1.5 flex justify-center align-items-center gap-2">
-                        <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-                        <span className='mt-1.5'>TailBreeze</span>
-                    </a>
+                    <Link to={`/`} className="-m-1.5 p-1.5 flex justify-center align-items-center gap-2">
+                        <img className="h-12 w-auto" src={logo} alt="" />
+                    </Link>
                 </div>
 
-                <Popover.Group className="hidden lg:flex lg:gap-x-12">
-                    <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                        Features
-                    </a>
-                    <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                        Marketplace
-                    </a>
-                    <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                        Company
-                    </a>
+                <Popover.Group className="hidden lg:flex lg:gap-x-8">
+
+                    <Categorias></Categorias>
+
+                    <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                        Novedades
+                    </Link>
+                    <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                        Detalles Técnicos
+                    </Link>
+                    <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                        Catálogos
+                    </Link>
+                    <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                        Quienes Somos
+                    </Link>
+                    <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                        Contacto
+                    </Link>
                 </Popover.Group>
 
                 <div className='flex gap-9'>
@@ -77,10 +66,9 @@ const Navbar = () => {
                     <div className="flex items-center justify-between">
 
                         <div className="flex">
-                            <a href="#" className="-m-1.5 p-1.5 flex justify-center align-items-center gap-2">
-                                <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-                                <span className='mt-1.5'>TailBreeze</span>
-                            </a>
+                            <Link to={`/`} className="-m-1.5 p-1.5 flex justify-center align-items-center gap-2">
+                                <img className="h-12 w-auto" src={logo} alt="" />
+                            </Link>
                         </div>
 
                         <button
@@ -88,32 +76,36 @@ const Navbar = () => {
                             className="-m-2.5 rounded-md p-2.5 text-gray-700"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            <span className="sr-only">Close menu</span>
+                            <span className="sr-only">Cerrar Menú</span>
                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
                     </div>
                     <div className="mt-6 flow-root">
                         <div className="-my-6 divide-y divide-gray-500/10">
-                            <div className="space-y-2 py-6">
+                            <div className="space-y-2 py-6 flex flex-col justify-center items-center gap-8">
 
-                                <a
-                                    href="#"
-                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Features
-                                </a>
-                                <a
-                                    href="#"
-                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Marketplace
-                                </a>
-                                <a
-                                    href="#"
-                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Company
-                                </a>
+                                <span className="text-sm font-semibold leading-6 text-gray-900 -mb-6">Productos</span>
+                                <div className="flex flex-col justify-center items-center gap-6 pb-8">
+                                    <NavLink to='/category/cilindros' className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Cilindros</NavLink>
+                                    <NavLink to='/category/tratamiento' className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Tratamiento</NavLink>
+                                    <NavLink to='/category/válvulas' className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Válvulas</NavLink>
+                                </div>
+
+                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                    Novedades
+                                </Link>
+                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                    Detalles Técnicos
+                                </Link>
+                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                    Catálogos
+                                </Link>
+                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                    Quienes Somos
+                                </Link>
+                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                    Contacto
+                                </Link>
                             </div>
                         </div>
                     </div>
