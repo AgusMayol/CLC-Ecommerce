@@ -1,0 +1,33 @@
+/* Primary */
+
+.animacion-boton-primary {
+    outline-style: solid;
+    outline-offset: -1px;
+    outline-color: #1d4ed8;
+    transition: all 100ms linear;
+}
+
+.animacion-boton-primary:is(:hover, :focus) {
+    outline-style: solid;
+    outline-offset: 3px;
+    outline-color: #1d4ed8;
+    transition: all 150ms linear;
+}
+
+/* Secondary */
+
+.animacion-boton-secondary {
+    outline-style: solid;
+    outline-offset: -1px;
+    outline-color: #d1d5db;
+    background-color: transparent;
+    transition: all 100ms linear;
+}
+
+.animacion-boton-secondary:is(:hover, :focus) {
+    outline-style: solid;
+    outline-offset: 3px;
+    outline-color: #d1d5db;
+    background-color: #d1d5db;
+    transition: all 150ms linear;
+}

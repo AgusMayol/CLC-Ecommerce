@@ -12,7 +12,7 @@ const ItemDetail = ({ id, name, price, color, imageSrc, imageAlt, stock, descrip
 
     return (
 
-        <div className="pt-6">
+        <div className="pt-6 mt-[90px] bg-gray-100">
             <nav aria-label="Breadcrumb">
                 <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                     <li>
@@ -43,8 +43,8 @@ const ItemDetail = ({ id, name, price, color, imageSrc, imageAlt, stock, descrip
 
             {/* Imagen */}
 
-            <div className="mt-24 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+            <div className="mt-6 ml-8 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+                <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none">
                     <img
                         src={imageSrc}
                         alt={imageAlt}
