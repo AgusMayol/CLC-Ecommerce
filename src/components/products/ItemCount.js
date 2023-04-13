@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const ItemCount = ({ stock = 0, initial = 1, onAdd }) => {
+const ItemCount = ({ stock = 0, initial = 1, onAdd, onBuy }) => {
     const [quantity, setQuantity] = useState(initial)
 
     const increment = () => {
@@ -16,19 +16,63 @@ const ItemCount = ({ stock = 0, initial = 1, onAdd }) => {
     }
 
     return (
-        <div className='flex flex-col items-center justify-center mt-10'>
-            <div className='flex gap-12'>
-                <button onClick={decrement}>-</button>
-                <h4>{quantity}</h4>
-                <button onClick={increment}>+</button>
-            </div>
-            <div>
-                <button
-                    className="mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-red-700 py-3 px-8 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => onAdd(quantity)}>
-                    Agregar al carrito
-                </button>
-            </div>
+
+        <div>
+            {
+                stock > 1 ? (
+                    <div>
+                        <p className="mt-4 text-md font-medium text-gray-900">Stock disponible</p>
+
+                        <div className='flex flex-col items-center justify-center mt-10'>
+
+
+                            <div className='flex gap-12'>
+                                <button type="button" onClick={decrement}>-</button>
+                                <h4>{quantity}</h4>
+                                <button type="button" onClick={increment}>+</button>
+                            </div>
+                            <div>
+
+                                <div className='flex flex-col justify-center items-center gap-3 mt-3'>
+
+                                    <button type="button"
+                                        className="bg-red-700 min-w-[300px] min-h-[40px] rounded-lg py-2 px-8 font-bold text-white text-sm animacion-boton-red"
+                                        onClick={() => onBuy(quantity)}>
+                                        Comprar ahora
+                                    </button>
+
+                                    <button type="button"
+                                        className="min-w-[300px] min-h-[40px] rounded-lg py-2 px-8 font-bold text-red-900 text-sm text-red-700 animacion-boton-red-secondary"
+                                        onClick={() => onAdd(quantity)}>
+                                        Agregar al carrito
+                                    </button>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                ) : (
+                    <div>
+
+                        <p className="mt-4 text-md font-medium text-gray-900">Sin stock</p>
+
+                        <div className='flex flex-col justify-center items-center mt-10'>
+
+                            <button type="button"
+                                className="min-w-[300px] min-h-[40px] mt-3 rounded-lg py-2 px-8 font-bold text-red-900 text-sm text-red-700 animacion-boton-red-secondary"
+                            >
+                                Avisarme cuando haya stock
+                            </button>
+
+                        </div>
+                    </div>
+                )
+            }
+
+
         </div>
     )
 

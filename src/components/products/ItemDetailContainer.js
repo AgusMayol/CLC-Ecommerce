@@ -1,27 +1,46 @@
 import { useState, useEffect } from 'react'
-import { getProductById } from '../../asyncMock'
 import ItemDetail from './ItemDetail'
 import { useParams } from 'react-router-dom'
+import { db } from '../../services/firebase/firebaseConfig';
+import { getDoc, doc } from 'firebase/firestore'
+import DetailSkeleton from './DetailSkeleton';
 
 export default function ItemDetailContainer() {
-
     const [product, setProduct] = useState()
+    const [loading, setLoading] = useState(true)
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     const { itemId } = useParams()
 
 
     useEffect(() => {
-        getProductById(itemId).then(response => {
-            setProduct(response)
-        }).catch(error => {
-            console.log(error)
-        })
+        setLoading(true)
+
+        const productRef = doc(db, 'products', itemId)
+
+        getDoc(productRef)
+            .then(snapshot => {
+                const data = snapshot.data()
+                const productAdapted = { id: snapshot.id, ...data }
+                setProduct(productAdapted)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+            .finally(() => {
+                setIsDataLoaded(true);
+                setLoading(false)
+            })
     }, [itemId])
 
     return (
-        <div className="bg-white">
-            <ItemDetail  {...product} />
-        </div>
+        loading && !isDataLoaded ? (
+            <DetailSkeleton />
+        ) : (
+            <div className="bg-white">
+                <ItemDetail  {...product} />
+            </div>
+        )
 
-    )
+    );
 }

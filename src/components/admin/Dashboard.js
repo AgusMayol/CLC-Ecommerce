@@ -26,15 +26,8 @@ const Dashboard = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/firebase.User
-                const uid = user.uid;
-                // ...
-                console.log("uid", uid)
                 setLoggedIn(true)
-                setNotification('success', 'Tienes acceso al dashboard', 5)
             } else {
-                console.log("user is logged out")
                 navigate("/")
                 setLoggedIn(false)
             }
@@ -122,14 +115,14 @@ const Dashboard = () => {
 
                 </div>
 
-                <div className='flex justify-end items-center mt-16 mr-16'>
-                    <button className="bg-blue-700 rounded-lg p-2 px-4 font-bold text-white text-sm animacion-boton-primary">Guardar cambios</button>
-                </div>
+                <div className='p-8 pb-16 bg-white drop-shadow-xl rounded-xl mt-16 ml-16 mr-16'>
 
-                <div className='p-8 pb-16 bg-white drop-shadow-xl rounded-xl mt-6 ml-16 mr-16'>
-                    <h2 className="font-semibold text-2xl">Configuración</h2>
+                    <div className='flex justify-between items-center'>
+                        <h2 className="font-semibold text-2xl">Configuración</h2>
+                        <button className="bg-blue-700 rounded-lg p-2 px-4 font-bold text-white text-sm animacion-boton-primary">Guardar cambios</button>
+                    </div>
 
-                    <div className="mt-3 flex items-center gap-16">
+                    <div className="mt-4 flex items-center gap-16">
                         <div className='w-[800px]'>
                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                                 Banner de Anuncios

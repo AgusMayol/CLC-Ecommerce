@@ -1,46 +1,69 @@
-import { useState, createContext, useContext } from 'react'
+import { useState, createContext, useContext, useEffect, useRef } from 'react'
+import { CSSTransition } from 'react-transition-group';
+import './Notification.css';
 
 import {
-  CheckCircleIcon, ExclamationCircleIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 
 const Notification = ({ type, message }) => {
+  const [show, setShow] = useState(false);
+  const nodeRef = useRef(null);
+
   const notificationStyle = {
-    position: 'absolute',
+    position: 'fixed',
     bottom: 10,
     right: 0,
     left: 0,
     zIndex: 100,
-  }
+  };
 
   const notificationStyle2 = {
     backgroundColor: type === 'success' ? '#16a34a' : '#dc2626',
     color: 'white',
     padding: '10px 20px 10px 20px',
     borderRadius: 10
-  }
+  };
 
-  if (!message) return
+  const hideNotification = () => {
+    setShow(false);
+  };
+
+  useEffect(() => {
+    if (message) {
+      setShow(true);
+      setTimeout(hideNotification, 5000); // Oculta la notificación después de 5 segundos
+    }
+  }, [message]);
 
   return (
-    <div style={notificationStyle} className='w-full flex justify-center items-center'>
+    <CSSTransition
+      in={show}
+      timeout={300}
+      classNames="notification"
+      unmountOnExit
+      nodeRef={nodeRef}
+    >
+      <div ref={nodeRef} style={notificationStyle} className='w-full flex justify-center items-center'>
 
-      {type === 'success' ? (
-        <div className='w-auto flex justify-center items-center font-semibold text-[15px]' style={notificationStyle2}>
-          <CheckCircleIcon className='h-6 w-6 mr-2' />
+        {type === 'success' ? (
+          <div className='w-auto flex justify-center items-center font-semibold text-[15px]' style={notificationStyle2}>
+            <CheckCircleIcon className='h-6 w-6 mr-2' />
 
-          {message}
-        </div>
-      ) : (
-        <div className='w-auto flex justify-center items-center font-semibold text-[15px]' style={notificationStyle2}>
-          <ExclamationCircleIcon className='h-6 w-6 mr-2' />
-          {message}
-        </div>
-      )}
+            {message}
+          </div>
+        ) : (
+          <div className='w-auto flex justify-center items-center font-semibold text-[15px]' style={notificationStyle2}>
+            <ExclamationCircleIcon className='h-6 w-6 mr-2' />
+            {message}
+          </div>
+        )}
 
-    </div>
-  )
-}
+      </div>
+    </CSSTransition>
+  );
+};
 
 const NotificationContext = createContext()
 
@@ -52,9 +75,6 @@ export const NotificationProvider = ({ children }) => {
 
   const setNotification = (type, text, timeout) => {
     setNotificationData({ type, text })
-    setTimeout(() => {
-      setNotification({ type, text: '' })
-    }, timeout * 1000)
   }
 
   return (

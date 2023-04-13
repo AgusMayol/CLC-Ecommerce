@@ -1,9 +1,24 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
+import { db } from '../../services/firebase/firebaseConfig';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 
 export default function Categorias() {
-    const [open, setOpen] = useState(false)
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        const categoriesRef = query(collection(db, 'categories'), orderBy('label', 'asc'))
+
+        getDocs(categoriesRef)
+            .then(snapshot => {
+                const categoriesAdapted = snapshot.docs.map(doc => {
+                    const data = doc.data()
+                    return { id: doc.id, ...data }
+                })
+                setCategories(categoriesAdapted)
+            })
+    }, [])
 
     return (
         <div>
@@ -42,6 +57,12 @@ export default function Categorias() {
                                                             <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                                                 <div className="group relative text-base sm:text-sm flex flex-col gap-8">
 
+                                                                    {
+                                                                        categories.map(cat => {
+                                                                            return <NavLink key={cat.id} to={`/category/${cat.slug}`} className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>{cat.label}</NavLink>
+                                                                        })
+                                                                    }
+
                                                                     <NavLink to='/category/cilindros' className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>Cilindros</NavLink>
                                                                     <NavLink to='/category/tratamiento' className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>Tratamiento</NavLink>
                                                                     <NavLink to='/category/válvulas' className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>Válvulas</NavLink>
@@ -62,7 +83,7 @@ export default function Categorias() {
                         </div>
                     </Popover.Group>
                 </div>
-            </nav >
-        </div >
+            </nav>
+        </div>
     )
 }

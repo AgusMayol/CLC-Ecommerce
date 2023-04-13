@@ -9,24 +9,30 @@ import Login from './components/login/Login';
 import Logout from './components/login/Logout';
 import Register from './components/login/Register';
 import { NotificationProvider } from './services/notification/notificationService';
+import { CartProvider } from './context/CartContext';
+import Checkout from './components/products/Checkout';
+
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <NotificationProvider>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<ItemListContainer greeting={"CLC Automation"} />} />
-            <Route path="/category/:categoryId" element={<ItemListContainer greeting={'Productos filtrados por categoria'} />} />
-            <Route path="/item/:itemId" element={<ItemDetailContainer />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/admin" element={<Dashboard />} />
-            <Route path="/admin/addproduct" element={<AddProduct />} />
-            <Route path="/admin/wip" element={<Wip />} />
-          </Routes>
+          <CartProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<ItemListContainer greeting={"CLC Automation"} />} />
+              <Route path="/category/:categoryId" element={<ItemListContainer greeting={'Productos filtrados por categoria'} />} />
+              <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/admin" element={<Dashboard />} />
+              <Route path="/admin/addproduct" element={<AddProduct />} />
+              <Route path="/admin/wip" element={<Wip />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
+          </CartProvider>
         </NotificationProvider>
       </BrowserRouter>
     </div>

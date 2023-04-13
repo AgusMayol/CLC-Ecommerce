@@ -31,3 +31,55 @@
     background-color: #d1d5db;
     transition: all 150ms linear;
 }
+
+/* Red */
+
+.animacion-boton-red {
+    outline-style: solid;
+    outline-offset: -1px;
+    outline-color: #b91c1c;
+    transition: all 100ms linear;
+}
+
+.animacion-boton-red:is(:hover, :focus) {
+    outline-style: solid;
+    outline-offset: 3px;
+    outline-color: #b91c1c;
+    transition: all 150ms linear;
+}
+
+/* Red secondary */
+
+.animacion-boton-red-secondary {
+    outline-style: solid;
+    outline-offset: -1px;
+    outline-color: #b91c1c;
+    color: #b91c1c;
+    background-color: transparent;
+    transition: all 100ms linear;
+}
+
+.animacion-boton-red-secondary:is(:hover, :focus) {
+    outline-style: solid;
+    outline-offset: 3px;
+    outline-color: #b91c1c;
+    color: white;
+    background-color: #b91c1c;
+    transition: all 150ms linear;
+}
+
+/* Indigo */
+
+.animacion-boton-indigo {
+    outline-style: solid;
+    outline-offset: -1px;
+    outline-color: #4f46e5;
+    transition: all 100ms linear;
+}
+
+.animacion-boton-indigo:is(:hover, :focus) {
+    outline-style: solid;
+    outline-offset: 3px;
+    outline-color: #4f46e5;
+    transition: all 150ms linear;
+}

@@ -10,7 +10,6 @@ import {
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import CartWidget from './CartWidget'
-import logo from '../../CLC_Logo.png'
 import Categorias from './categorias'
 
 const Navbar = () => {
@@ -18,6 +17,8 @@ const Navbar = () => {
     const [LoggedIn, setLoggedIn] = useState(null)
     const location = useLocation();
     const [Ruta, setRuta] = useState(location.pathname);
+
+    const logo = 'https://firebasestorage.googleapis.com/v0/b/clc-ecommerce.appspot.com/o/CLC_Logo.png?alt=media&token=494b8c39-b37a-480e-b9c9-a4eb46223d5e'
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')

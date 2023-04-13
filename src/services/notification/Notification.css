@@ -1,0 +1,21 @@
+.notification-enter {
+    transform: translate(0, 100%);
+    opacity: 0;
+}
+
+.notification-enter-active {
+    transform: translate(0, 0);
+    opacity: 1;
+    transition: all 300ms ease-out;
+}
+
+.notification-exit {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+.notification-exit-active {
+    transform: translate(0, 100%);
+    opacity: 0;
+    transition: all 300ms ease-out;
+}
