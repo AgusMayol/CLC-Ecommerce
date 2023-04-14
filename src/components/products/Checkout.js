@@ -13,7 +13,7 @@ const Checkout = () => {
     const [orderId, setOrderId] = useState('')
     const [loading, setLoading] = useState(false)
     const [confirmado, setConfirmado] = useState(false)
-    const { cart, total, clearCart, removeItem } = useCart()
+    const { cart, total, clearCart, removeItem, incrementQuantity, decrementQuantity } = useCart()
     const { setNotification } = useNotification()
 
     const handleOnRemove = (id, name) => {
@@ -135,7 +135,7 @@ const Checkout = () => {
                                             <h3>
                                                 <Link to={`/item/${prod.id}`}>{prod.name}</Link>
                                             </h3>
-                                            <p className="ml-4">${prod.price} <span className='text-gray-400 text-sm'>x {prod.quantity}</span></p>
+                                            <p className="ml-4">${new Intl.NumberFormat('de-DE').format(prod.price)} <span className='text-gray-400 text-sm'>x {prod.quantity}</span></p>
                                         </div>
                                         <p className="mt-1 text-sm text-gray-500">{prod.model}</p>
                                     </div>
@@ -156,6 +156,9 @@ const Checkout = () => {
                                         )
 
                                         }
+
+                                        <button onClick={() => decrementQuantity(prod.id)}>-</button>
+                                        <button onClick={() => incrementQuantity(prod.id, prod.stock)}>+</button>
 
 
                                         <div className="flex">
@@ -190,28 +193,30 @@ const Checkout = () => {
                             <div className="border-t border-gray-200 mt-8 w-full">
                                 <div className="flex justify-between text-base mt-4 font-medium w-full text-gray-900">
                                     <p className="text-gray-500">Subtotal</p>
-                                    <p>${total}</p>
+                                    <p>${new Intl.NumberFormat('de-DE').format(total)}</p>
                                 </div>
 
                                 <div className="flex justify-between text-base mt-4 font-medium w-full text-gray-900">
                                     <p className="text-gray-500">Envío</p>
-                                    <p>${envio}</p>
+                                    <p>${new Intl.NumberFormat('de-DE').format(envio)}</p>
                                 </div>
 
                                 <div className="flex justify-between text-base mt-4 font-medium w-full text-gray-900">
                                     <p className="text-gray-500">Impuestos</p>
-                                    <p>${impuestos}</p>
+                                    <p>${new Intl.NumberFormat('de-DE').format(impuestos)}</p>
                                 </div>
                             </div>
 
                             <div className="border-t border-gray-200 mt-8 w-full">
                                 <div className="flex justify-between text-base mt-4 font-medium w-full text-gray-900">
                                     <p>Total</p>
-                                    <p>${total + impuestos + envio}</p>
+                                    <p>${new Intl.NumberFormat('de-DE').format(total + impuestos + envio)}</p>
                                 </div>
                             </div>
 
                             <button onClick={() => handleConfirmado()} className="bg-blue-700 mt-12 rounded-lg p-2 px-[110px] font-bold text-white text-sm hover:bg-blue-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600">Confirmar orden</button>
+
+                            <button onClick={() => clearCart()}>Vaciar carrito</button>
 
                         </div>
                     )

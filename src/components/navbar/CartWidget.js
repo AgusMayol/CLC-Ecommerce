@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const CartWidget = () => {
     const [open, setOpen] = useState(false)
-    const { totalQuantity, cart, total, removeItem } = useCart()
+    const { totalQuantity, cart, total, removeItem, incrementQuantity, decrementQuantity, clearCart } = useCart()
     const { setNotification } = useNotification()
 
     const handleOnRemove = (id, name) => {
@@ -84,62 +84,61 @@ const CartWidget = () => {
                                                         <ul role="list" className="-my-6 divide-y divide-gray-200">
 
                                                             {
-                                                                cart > 0 ? (
-                                                                    cart.map((prod) => (
-                                                                        <li key={prod.id} className="flex py-6">
-                                                                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                                <img
-                                                                                    src={prod.imageSrc}
-                                                                                    alt={`Imagen del producto ${prod.name}`}
-                                                                                    className="h-full w-full object-cover object-center"
-                                                                                />
-                                                                            </div>
+                                                                cart.map((prod) => (
+                                                                    <li key={prod.id} className="flex py-6">
+                                                                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                            <img
+                                                                                src={prod.imageSrc}
+                                                                                alt={`Imagen del producto ${prod.name}`}
+                                                                                className="h-full w-full object-cover object-center"
+                                                                            />
+                                                                        </div>
 
-                                                                            <div className="ml-4 flex flex-1 flex-col">
-                                                                                <div>
-                                                                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                                                                        <h3>
-                                                                                            <Link to={`/item/${prod.id}`}>{prod.name}</Link>
-                                                                                        </h3>
-                                                                                        <p className="ml-4">${prod.price} <span className='text-gray-400 text-sm'>x {prod.quantity}</span></p>
-                                                                                    </div>
-                                                                                    <p className="mt-1 text-sm text-gray-500">{prod.model}</p>
+                                                                        <div className="ml-4 flex flex-1 flex-col">
+                                                                            <div>
+                                                                                <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                                    <h3>
+                                                                                        <Link to={`/item/${prod.id}`}>{prod.name}</Link>
+                                                                                    </h3>
+                                                                                    <p className="ml-4">${new Intl.NumberFormat('de-DE').format(prod.price)} <span className='text-gray-400 text-sm'>x {prod.quantity}</span></p>
                                                                                 </div>
-                                                                                <div className="flex flex-1 items-end justify-between text-sm">
+                                                                                <p className="mt-1 text-sm text-gray-500">{prod.model}</p>
+                                                                            </div>
+                                                                            <div className="flex flex-1 items-end justify-between text-sm">
 
 
-                                                                                    {prod.quantity > 1 ? (
+                                                                                {prod.quantity > 1 ? (
 
-                                                                                        <p className="text-gray-500">
-                                                                                            {prod.quantity} unidades
-                                                                                        </p>
+                                                                                    <p className="text-gray-500">
+                                                                                        {prod.quantity} unidades
+                                                                                    </p>
 
-                                                                                    ) : (
+                                                                                ) : (
 
-                                                                                        <p className="text-gray-500">
-                                                                                            {prod.quantity} unidad
-                                                                                        </p>
-                                                                                    )
+                                                                                    <p className="text-gray-500">
+                                                                                        {prod.quantity} unidad
+                                                                                    </p>
+                                                                                )
 
-                                                                                    }
+                                                                                }
+
+                                                                                <button onClick={() => decrementQuantity(prod.id)}>-</button>
+                                                                                <button onClick={() => incrementQuantity(prod.id, prod.stock)}>+</button>
 
 
-                                                                                    <div className="flex">
-                                                                                        <button
-                                                                                            type="button"
-                                                                                            onClick={() => handleOnRemove(prod.id, prod.name)}
-                                                                                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                                                                                        >
-                                                                                            Eliminar
-                                                                                        </button>
-                                                                                    </div>
+                                                                                <div className="flex">
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        onClick={() => handleOnRemove(prod.id, prod.name)}
+                                                                                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                                    >
+                                                                                        Eliminar
+                                                                                    </button>
                                                                                 </div>
                                                                             </div>
-                                                                        </li>
-                                                                    ))
-                                                                ) : (
-                                                                    <span className='text-sm'>¡Vaya! no agregaste ningún producto al carrito.</span>
-                                                                )
+                                                                        </div>
+                                                                    </li>
+                                                                ))
                                                             }
 
 
@@ -151,7 +150,7 @@ const CartWidget = () => {
                                             <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                                                 <div className="flex justify-between text-base font-medium text-gray-900">
                                                     <p>Subtotal</p>
-                                                    <p>${total}</p>
+                                                    <p>${new Intl.NumberFormat('de-DE').format(total)}</p>
                                                 </div>
                                                 <p className="mt-0.5 text-sm text-gray-500">El envío y los impuestos se calculan al finalizar la compra</p>
                                                 <div className="mt-6">
@@ -175,6 +174,8 @@ const CartWidget = () => {
                                                         </button>
                                                     </p>
                                                 </div>
+
+                                                <button onClick={() => clearCart()}>Vaciar carrito</button>
                                             </div>
                                         </div>
                                     </Dialog.Panel>

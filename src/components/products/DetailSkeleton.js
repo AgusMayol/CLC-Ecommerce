@@ -3,7 +3,7 @@ const DetailSkeleton = () => {
 
     return (
         <div>
-            <nav aria- label="Breadcrumb" >
+            <nav aria-label="Breadcrumb" >
                 <ol className="mt-[120px] mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                     <li>
                         <div className="flex items-center">
