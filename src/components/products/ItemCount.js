@@ -1,6 +1,6 @@
-import { useState, Fragment, useEffect } from 'react'
+import { useState, Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const ItemCount = ({ stock = 0, initial = 1, onAdd, onBuy }) => {
     const [quantity, setQuantity] = useState(initial)

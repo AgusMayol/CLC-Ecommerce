@@ -1,27 +1,25 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Dialog, Popover } from '@headlessui/react'
-import { onAuthStateChanged } from "firebase/auth";
+import React, { useState, useEffect, Fragment } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Dialog, Popover } from '@headlessui/react';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../services/firebase/firebaseConfig';
-import { RadioGroup, Menu, Transition } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react';
 
-import {
-    Bars3Icon,
-    XMarkIcon,
-} from '@heroicons/react/24/outline'
-import CartWidget from './CartWidget'
-import Categorias from './categorias'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import CartWidget from './CartWidget';
+import Categorias from './categorias';
 
 const Navbar = () => {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    const [LoggedIn, setLoggedIn] = useState(null)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [LoggedIn, setLoggedIn] = useState(null);
     const location = useLocation();
-    const [Ruta, setRuta] = useState(location.pathname);
+    const [ruta, setRuta] = useState(location.pathname);
 
-    const logo = 'https://firebasestorage.googleapis.com/v0/b/clc-ecommerce.appspot.com/o/CLC_Logo.png?alt=media&token=494b8c39-b37a-480e-b9c9-a4eb46223d5e'
+    const logo =
+        'https://firebasestorage.googleapis.com/v0/b/clc-ecommerce.appspot.com/o/CLC_Logo.png?alt=media&token=494b8c39-b37a-480e-b9c9-a4eb46223d5e';
 
     function classNames(...classes) {
-        return classes.filter(Boolean).join(' ')
+        return classes.filter(Boolean).join(' ');
     }
 
     useEffect(() => {
@@ -31,15 +29,13 @@ const Navbar = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                setLoggedIn(true)
-
+                setLoggedIn(true);
             } else {
-                setLoggedIn(false)
-                console.log("user is logged out")
+                setLoggedIn(false);
             }
         });
+    }, []);
 
-    }, [])
 
     return (
         <header className="bg-white shadow fixed left-0 top-0 w-full z-10">
@@ -53,9 +49,12 @@ const Navbar = () => {
 
 
 
-                {(LoggedIn && Ruta.includes("/admin")) ? (
+                {(LoggedIn && ruta.includes("/admin")) ? (
                     <Popover.Group className="hidden lg:flex lg:gap-x-8">
 
+                        <Link to={`/admin`} className="text-sm font-semibold leading-6 text-gray-900">
+                            Dashboard
+                        </Link>
                         <Link to={`/admin/wip`} className="text-sm font-semibold leading-6 text-gray-900">
                             Estadísticas
                         </Link>
@@ -74,6 +73,11 @@ const Navbar = () => {
                     </Popover.Group>
                 ) : (
                     <Popover.Group className="hidden lg:flex lg:gap-x-8">
+
+                        <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                            Inicio
+                        </Link>
+
                         <Categorias></Categorias>
 
                         <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
@@ -194,7 +198,7 @@ const Navbar = () => {
                     <div className="flex items-center justify-between">
 
                         <div className="flex">
-                            <Link to={`/`} className="-m-1.5 p-1.5 flex justify-center align-items-center gap-2">
+                            <Link to={`/`} onClick={() => setMobileMenuOpen(false)} className="-m-1.5 p-1.5 flex justify-center align-items-center gap-2">
                                 <img className="h-12 w-auto" src={logo} alt="" />
                             </Link>
                         </div>
@@ -212,26 +216,30 @@ const Navbar = () => {
                         <div className="-my-6 divide-y divide-gray-500/10">
                             <div className="space-y-2 py-6 flex flex-col justify-center items-center gap-8">
 
+                                <Link to={`/`} onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold leading-6 text-gray-900">
+                                    Inicio
+                                </Link>
+
                                 <span className="text-sm font-semibold leading-6 text-gray-900 -mb-6">Productos</span>
                                 <div className="flex flex-col justify-center items-center gap-6 pb-8">
-                                    <NavLink to='/category/cilindros' className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Cilindros</NavLink>
-                                    <NavLink to='/category/tratamiento' className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Tratamiento</NavLink>
-                                    <NavLink to='/category/válvulas' className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Válvulas</NavLink>
+                                    <NavLink to='/category/cilindros' onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Cilindros</NavLink>
+                                    <NavLink to='/category/tratamiento' onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Tratamiento</NavLink>
+                                    <NavLink to='/category/válvulas' onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'text-red-700' : 'text-gray-900'}>Válvulas</NavLink>
                                 </div>
 
-                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                <Link to={`/`} onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold leading-6 text-gray-900">
                                     Novedades
                                 </Link>
-                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                <Link to={`/`} onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold leading-6 text-gray-900">
                                     Detalles Técnicos
                                 </Link>
-                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                <Link to={`/`} onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold leading-6 text-gray-900">
                                     Catálogos
                                 </Link>
-                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                <Link to={`/`} onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold leading-6 text-gray-900">
                                     Quienes Somos
                                 </Link>
-                                <Link to={`/`} className="text-sm font-semibold leading-6 text-gray-900">
+                                <Link to={`/`} onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold leading-6 text-gray-900">
                                     Contacto
                                 </Link>
                             </div>

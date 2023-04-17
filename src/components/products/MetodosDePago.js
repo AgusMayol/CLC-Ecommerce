@@ -64,7 +64,7 @@ export default function MetodosDePago() {
                                     >
                                         Medios de pago
                                     </Dialog.Title>
-                                    <div className="mt-8 mb-8 flex justify-center items-center gap-8">
+                                    <div className="mt-8 mb-8 flex flex-col sm:flex-row justify-center items-center gap-8">
                                         <img src={Logo_American} alt="" />
                                         <img src={Logo_Argencard} alt="" />
                                         <img src={Logo_Cabal} alt="" />

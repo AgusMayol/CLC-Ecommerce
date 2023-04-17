@@ -1,17 +1,12 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { RadioGroup, Menu, Transition } from '@headlessui/react'
+import { RadioGroup } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import './boton.css';
 
 import {
-    EllipsisVerticalIcon,
-} from "@heroicons/react/24/solid";
-
-
-import {
-    PlusCircleIcon, PencilSquareIcon, ArrowLeftCircleIcon, EyeIcon, DocumentDuplicateIcon, TrashIcon, ArrowTopRightOnSquareIcon,
+    PlusCircleIcon, PencilSquareIcon, ArrowLeftCircleIcon
 } from "@heroicons/react/24/outline";
 
 const formats = [
@@ -27,10 +22,6 @@ const plans = [
         name: 'Limitado',
     },
 ]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
 
 const AddProduct = () => {
     const [value, setValue] = useState('');
@@ -83,7 +74,7 @@ const AddProduct = () => {
                     </li>
                     <li className="text-sm">
                         <Link to={`/admin/addproduct`} className="font-medium text-gray-500 hover:text-gray-600">
-                            addproduct
+                            añadir producto
                         </Link>
 
                     </li>
@@ -92,85 +83,6 @@ const AddProduct = () => {
             <form>
                 <div className="flex justify-between w-full">
                     <h1 className="font-bold text-3xl">Añadir nuevo producto</h1>
-                    <div className="flex space-between gap-4">
-
-                        <Menu as="div" className="relative inline-block text-left">
-                            <div>
-                                <Menu.Button className="flex justify-center items-center border-[1px] rounded-lg p-2 px-4 font-bold text-gray-800 text-sm animacion-boton-secondary">
-                                    <EllipsisVerticalIcon className='h-5 w-5 mr-1' /> Más opciones
-                                </Menu.Button>
-                            </div>
-
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-100"
-                                enterFrom="transform opacity-0 scale-95"
-                                enterTo="transform opacity-100 scale-100"
-                                leave="transition ease-in duration-75"
-                                leaveFrom="transform opacity-100 scale-100"
-                                leaveTo="transform opacity-0 scale-95"
-                            >
-                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <div className="py-1">
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active ? 'bg-gray-100' : 'text-gray-900',
-                                                        'block px-4 py-2 text-sm flex font-medium'
-                                                    )}
-                                                >
-                                                    <ArrowTopRightOnSquareIcon className='h-5 w-5 mr-3' /> Ver producto
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active ? 'bg-gray-100' : 'text-gray-900',
-                                                        'block px-4 py-2 text-sm flex font-medium'
-                                                    )}
-                                                >
-                                                    <EyeIcon className='h-5 w-5 mr-3' /> Vista previa
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active ? 'bg-gray-100' : 'text-gray-900',
-                                                        'block px-4 py-2 text-sm flex font-medium'
-                                                    )}
-                                                >
-                                                    <DocumentDuplicateIcon className='h-5 w-5 mr-3' /> Duplicar
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active ? 'bg-gray-100' : 'text-red-800',
-                                                        'block px-4 py-2 text-sm text-red-800 flex font-medium'
-                                                    )}
-                                                >
-                                                    <TrashIcon className='h-5 w-5 mr-3' /> Eliminar
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                    </div>
-                                </Menu.Items>
-                            </Transition>
-                        </Menu>
-
-                        <button type='submit' className="bg-blue-700 rounded-lg p-2 px-4 font-bold text-white text-sm animacion-boton-primary">Guardar cambios</button>
-                    </div>
                 </div>
 
 
@@ -506,7 +418,6 @@ const AddProduct = () => {
                                                 </div>
                                                 {checked && (
                                                     <div className="shrink-0 text-white">
-                                                        {/* <CheckIcon className="h-6 w-6" /> */}
                                                     </div>
                                                 )}
                                             </div>
@@ -671,26 +582,11 @@ const AddProduct = () => {
                 </div>
 
                 <div className="mt-4 flex justify-end items-end gap-4 w-full">
-                    <button className="rounded-lg p-2 px-4 font-bold text-gray-800 text-sm animacion-boton-secondary">Cancelar</button>
+                    <Link to={"/admin/productlist"} className="rounded-lg p-2 px-4 font-bold text-gray-800 text-sm animacion-boton-secondary">Cancelar</Link>
                     <button type='submit' className="bg-blue-700 rounded-lg p-2 px-4 font-bold text-white text-sm animacion-boton-primary">Guardar cambios</button>
                 </div>
             </form >
         </div >
-    )
-}
-
-function CheckIcon(props) {
-    return (
-        <svg viewBox="0 0 24 24" fill="none" {...props}>
-            <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
-            <path
-                d="M7 13l3 3 7-7"
-                stroke="#fff"
-                strokeWidth={1.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
     )
 }
 

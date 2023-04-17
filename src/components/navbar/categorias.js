@@ -23,10 +23,10 @@ export default function Categorias() {
     return (
         <div>
             <nav aria-label="Top">
-                <div className="flex items-center">
+                <div className="flex items-center w-auto">
 
                     {/* Flyout menus */}
-                    <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
+                    <Popover.Group className="hidden lg:block lg:self-stretch">
                         <div className="flex h-full space-x-8">
                             <Popover className="flex">
                                 {({ open }) => (
@@ -62,10 +62,6 @@ export default function Categorias() {
                                                                             return <NavLink key={cat.id} to={`/category/${cat.slug}`} className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>{cat.label}</NavLink>
                                                                         })
                                                                     }
-
-                                                                    <NavLink to='/category/cilindros' className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>Cilindros</NavLink>
-                                                                    <NavLink to='/category/tratamiento' className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>Tratamiento</NavLink>
-                                                                    <NavLink to='/category/válvulas' className={({ isActive }) => isActive ? 'text-red-700 font-semibold' : 'text-gray-900 font-semibold'}>Válvulas</NavLink>
 
                                                                 </div>
 

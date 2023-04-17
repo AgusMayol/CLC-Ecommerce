@@ -48,13 +48,13 @@ const Notification = ({ type, message }) => {
       <div ref={nodeRef} style={notificationStyle} className='w-full flex justify-center items-center'>
 
         {type === 'success' ? (
-          <div className='w-auto flex justify-center items-center font-semibold text-[15px]' style={notificationStyle2}>
+          <div className='w-auto flex justify-center items-center font-semibold text-[15px] mx-4 lg:mx-0' style={notificationStyle2}>
             <CheckCircleIcon className='h-6 w-6 mr-2' />
 
             {message}
           </div>
         ) : (
-          <div className='w-auto flex justify-center items-center font-semibold text-[15px]' style={notificationStyle2}>
+          <div className='w-auto flex justify-center items-center font-semibold text-[15px] mx-4 lg:mx-0' style={notificationStyle2}>
             <ExclamationCircleIcon className='h-6 w-6 mr-2' />
             {message}
           </div>

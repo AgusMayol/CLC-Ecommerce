@@ -69,7 +69,7 @@ const ItemDetail = ({ id, name, price, model, imageSrc, stock, description, cate
                 </nav>
 
                 {/* Product info */}
-                <div className="mx-auto bg-white drop-shadow p-4 mt-4 rounded-lg max-w-2xl px-4 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-4">
+                <div className="mx-auto bg-white drop-shadow p-4 mt-4 rounded-lg max-w-2xl px-4 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-4 lg:pl-8">
 
                     <div className="lg:col-span-2 lg:pr-8">
 
@@ -94,7 +94,7 @@ const ItemDetail = ({ id, name, price, model, imageSrc, stock, description, cate
                     </div>
 
                     {/* Options */}
-                    <div className="mt-4 lg:row-span-3 h-fit bg-white border-[1px] p-4 pb-6 rounded-lg lg:mt-0">
+                    <div className="mt-4 lg:row-span-3 h-fit bg-white border-[1px] shadow p-4 pb-6 rounded-lg lg:mt-0">
                         <h2 className="sr-only">Información del Producto</h2>
                         <div className='flex justify-start items-center mb-2'>
                             <div className='flex justify-start items-center gap-2 divide-x'>

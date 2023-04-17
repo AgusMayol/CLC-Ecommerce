@@ -15,9 +15,9 @@ const ContactForm = ({ onConfirm }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className=" w-full">
 
-            <div className="mt-4 flex flex-col gap-12">
+            <div className="mt-4 flex flex-col gap-12 w-full">
                 <div className=''>
                     <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                         Nombre y Apellido
@@ -48,7 +48,7 @@ const ContactForm = ({ onConfirm }) => {
                     </div>
                 </div>
 
-                <button className="bg-blue-700 rounded-lg p-2 px-[110px] font-bold text-white text-sm hover:bg-blue-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600">Realizar pedido</button>
+                <button className="bg-blue-700 mt-12 w-full rounded-lg p-2 sm:px-4 font-bold text-white text-sm hover:bg-blue-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600">Realizar pedido</button>
             </div>
         </form>
     )

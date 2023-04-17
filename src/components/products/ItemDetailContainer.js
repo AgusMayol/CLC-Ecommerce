@@ -8,7 +8,6 @@ import DetailSkeleton from './DetailSkeleton';
 export default function ItemDetailContainer() {
     const [product, setProduct] = useState()
     const [loading, setLoading] = useState(true)
-    const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     const { itemId } = useParams()
 
@@ -28,13 +27,12 @@ export default function ItemDetailContainer() {
                 console.log(error)
             })
             .finally(() => {
-                setIsDataLoaded(true);
                 setLoading(false)
             })
     }, [itemId])
 
     return (
-        loading && !isDataLoaded ? (
+        loading ? (
             <DetailSkeleton />
         ) : (
             <div className="bg-white">

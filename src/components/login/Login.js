@@ -1,7 +1,9 @@
-import React, { useState, Fragment } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../services/firebase/firebaseConfig';
+import google from './icons/google.png'
+import github from './icons/github.png'
 
 import {
     ArrowLeftCircleIcon,
@@ -26,8 +28,39 @@ const Login = () => {
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage)
             });
-
     }
+
+    const onLoginWithGithub = () => {
+        const provider = new GithubAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                navigate("/")
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage)
+            });
+    }
+
+    const signInWithGoogle = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                navigate("/");
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+    };
+
 
     return (
         <div className="bg-gray-100 mt-[75px] p-8 px-12">
@@ -77,12 +110,22 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-                        <Link to={`/admin/wip`}>
+                        <Link to={``}>
                             <span className="font-medium text-xs hover:text-blue-600">¿Olvidaste tu contraseña?</span>
                         </Link>
                     </div>
 
                     <button type="submit" onClick={onLogin} className="bg-blue-700 rounded-lg p-2 px-[110px] lg:px-[355px] font-bold text-white text-sm hover:bg-blue-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600">Iniciar sesión</button>
+
+                    <span className='text-gray-400 text-xs -mt-5'>O, inicia sesión con</span>
+
+                    <div className='flex flex justify-center items-center gap-6 -mt-5'>
+                        <button type="button" onClick={onLoginWithGithub} className="bg-gray-900 rounded-full p-3 font-bold text-white text-sm hover:bg-gray-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600"><img src={github} alt="" className='w-6 h-6' /></button>
+
+                        <button type="button" onClick={signInWithGoogle} className="bg-white rounded-full p-3 font-bold text-black text-sm hover:bg-gray-200 ring-1 ring-gray-200 focus:ring-2 focus:ring-indigo-600"><img src={google} alt="" className='w-6 h-6' /></button>
+                    </div>
+
+
 
                     <span className="font-medium text-xs">¿No tienes una cuenta?
 

@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { useCart } from '../../context/CartContext';
 import { useNotification } from '../../services/notification/notificationService'
 import { Link } from 'react-router-dom'
@@ -14,6 +14,11 @@ const CartWidget = () => {
     const handleOnRemove = (id, name) => {
         removeItem(id)
         setNotification('success', `Se eliminó correctamente ${name}`)
+    }
+
+    const handleVaciar = () => {
+        clearCart();
+        setNotification('success', `Se vació correctamente el carrito`);
     }
 
     function openOffCanvas() {
@@ -62,12 +67,20 @@ const CartWidget = () => {
                                     leaveFrom="translate-x-0"
                                     leaveTo="translate-x-full"
                                 >
-                                    <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                                    <Dialog.Panel className="pointer-events-auto w-screen max-w-xl">
                                         <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                             <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                                                 <div className="flex items-start justify-between">
-                                                    <Dialog.Title className="text-lg font-medium text-gray-900">Carrito de la compra</Dialog.Title>
+                                                    <Dialog.Title className="text-lg font-medium text-gray-900 flex items-center gap-8">Carrito de la compra </Dialog.Title>
+
                                                     <div className="ml-3 flex h-7 items-center">
+
+                                                        <button
+                                                            type="button"
+                                                            className="mr-8 p-2 text-gray-400 hover:text-gray-500"
+                                                            onClick={handleVaciar}><span className="sr-only">Vaciar carrito</span>
+                                                            <TrashIcon className="h-5 w-5" aria-hidden="true" /></button>
+
                                                         <button
                                                             type="button"
                                                             className="-m-2 p-2 text-gray-400 hover:text-gray-500"
@@ -81,7 +94,7 @@ const CartWidget = () => {
 
                                                 <div className="mt-8">
                                                     <div className="flow-root">
-                                                        <ul role="list" className="-my-6 divide-y divide-gray-200">
+                                                        <ul className="-my-6 divide-y divide-gray-200">
 
                                                             {
                                                                 cart.map((prod) => (
@@ -100,31 +113,32 @@ const CartWidget = () => {
                                                                                     <h3>
                                                                                         <Link to={`/item/${prod.id}`}>{prod.name}</Link>
                                                                                     </h3>
-                                                                                    <p className="ml-4">${new Intl.NumberFormat('de-DE').format(prod.price)} <span className='text-gray-400 text-sm'>x {prod.quantity}</span></p>
+                                                                                    <p className="ml-6">${new Intl.NumberFormat('de-DE').format(prod.price)}</p>
                                                                                 </div>
                                                                                 <p className="mt-1 text-sm text-gray-500">{prod.model}</p>
                                                                             </div>
                                                                             <div className="flex flex-1 items-end justify-between text-sm">
 
+                                                                                <div className='flex justify-center items-center gap-4'>
+                                                                                    <button className='text-gray-500 hover:text-black' onClick={() => decrementQuantity(prod.id)}>-</button>
 
-                                                                                {prod.quantity > 1 ? (
+                                                                                    {prod.quantity > 1 ? (
 
-                                                                                    <p className="text-gray-500">
-                                                                                        {prod.quantity} unidades
-                                                                                    </p>
+                                                                                        <p className="text-gray-500">
+                                                                                            {prod.quantity} unidades
+                                                                                        </p>
 
-                                                                                ) : (
+                                                                                    ) : (
 
-                                                                                    <p className="text-gray-500">
-                                                                                        {prod.quantity} unidad
-                                                                                    </p>
-                                                                                )
+                                                                                        <p className="text-gray-500">
+                                                                                            {prod.quantity} unidad
+                                                                                        </p>
+                                                                                    )
 
-                                                                                }
+                                                                                    }
 
-                                                                                <button onClick={() => decrementQuantity(prod.id)}>-</button>
-                                                                                <button onClick={() => incrementQuantity(prod.id, prod.stock)}>+</button>
-
+                                                                                    <button className='text-gray-500 hover:text-black' onClick={() => incrementQuantity(prod.id, prod.stock)}>+</button>
+                                                                                </div>
 
                                                                                 <div className="flex">
                                                                                     <button
@@ -156,6 +170,7 @@ const CartWidget = () => {
                                                 <div className="mt-6">
                                                     <Link
                                                         to={'/checkout'}
+                                                        onClick={() => setOpen(false)}
                                                         className="flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm animacion-boton-indigo"
                                                     >
                                                         Finalizar compra
@@ -174,8 +189,6 @@ const CartWidget = () => {
                                                         </button>
                                                     </p>
                                                 </div>
-
-                                                <button onClick={() => clearCart()}>Vaciar carrito</button>
                                             </div>
                                         </div>
                                     </Dialog.Panel>
@@ -185,7 +198,7 @@ const CartWidget = () => {
                     </div>
                 </Dialog>
             </Transition.Root>
-        </div>
+        </div >
     )
 
 }
