@@ -94,19 +94,19 @@ const ItemCount = ({ stock = 0, initial = 1, onAdd, onBuy }) => {
                             </div>
                         </Listbox>
 
-                        <div className='flex flex-col items-center justify-center mt-10'>
+                        <div className='flex flex-col items-center justify-center mt-10 px-6'>
 
-                            <div>
-                                <div className='flex flex-col justify-center items-center gap-3 mt-3'>
+                            <div className='w-full'>
+                                <div className='flex flex-col justify-center items-center gap-3 mt-3 w-full'>
 
                                     <button type="button"
-                                        className="bg-red-700 min-w-[300px] min-h-[40px] rounded-lg py-2 px-8 font-bold text-white text-sm animacion-boton-red"
+                                        className="bg-red-700 w-full min-h-[40px] rounded-lg py-2 px-8 font-bold text-white text-sm animacion-boton-red"
                                         onClick={() => onBuy(quantity)}>
                                         Comprar ahora
                                     </button>
 
                                     <button type="button"
-                                        className="min-w-[300px] min-h-[40px] rounded-lg py-2 px-8 font-bold text-red-900 text-sm text-red-700 animacion-boton-red-secondary"
+                                        className="w-full min-h-[40px] rounded-lg py-2 px-8 font-bold text-red-900 text-sm text-red-700 animacion-boton-red-secondary"
                                         onClick={() => onAdd(quantity)}>
                                         Agregar al carrito
                                     </button>

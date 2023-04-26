@@ -6,7 +6,7 @@ import {
 const Cards = () => {
 
     return (
-        <div className='grid grid-rows-3 lg:grid-cols-3 justify-center place-items-center mt-6 mb-6 w-full divide-slate-300'>
+        <div className='grid grid-rows-3 lg:grid-cols-3 lg:grid-rows-1 justify-center place-items-center my-6 w-full divide-slate-300'>
 
             <div className=' min-w-[255px] max-w-[255px] p-4 grid grid-cols-1 justify-center place-items-center gap-1'>
                 <GlobeAmericasIcon className='h-6 w-6' />

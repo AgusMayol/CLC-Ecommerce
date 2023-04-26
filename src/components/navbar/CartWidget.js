@@ -75,11 +75,17 @@ const CartWidget = () => {
 
                                                     <div className="ml-3 flex h-7 items-center">
 
-                                                        <button
-                                                            type="button"
-                                                            className="mr-8 p-2 text-gray-400 hover:text-gray-500"
-                                                            onClick={handleVaciar}><span className="sr-only">Vaciar carrito</span>
-                                                            <TrashIcon className="h-5 w-5" aria-hidden="true" /></button>
+                                                        {
+                                                            totalQuantity > 0 ? (
+                                                                <button
+                                                                    type="button"
+                                                                    className="mr-8 p-2 text-gray-400 hover:text-gray-500"
+                                                                    onClick={handleVaciar}><span className="sr-only">Vaciar carrito</span>
+                                                                    <TrashIcon className="h-5 w-5" aria-hidden="true" /></button>
+                                                            ) : (
+                                                                null
+                                                            )
+                                                        }
 
                                                         <button
                                                             type="button"
@@ -97,62 +103,70 @@ const CartWidget = () => {
                                                         <ul className="-my-6 divide-y divide-gray-200">
 
                                                             {
-                                                                cart.map((prod) => (
-                                                                    <li key={prod.id} className="flex py-6">
-                                                                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                            <img
-                                                                                src={prod.imageSrc}
-                                                                                alt={`Imagen del producto ${prod.name}`}
-                                                                                className="h-full w-full object-cover object-center"
-                                                                            />
-                                                                        </div>
-
-                                                                        <div className="ml-4 flex flex-1 flex-col">
-                                                                            <div>
-                                                                                <div className="flex justify-between text-base font-medium text-gray-900">
-                                                                                    <h3>
-                                                                                        <Link to={`/item/${prod.id}`}>{prod.name}</Link>
-                                                                                    </h3>
-                                                                                    <p className="ml-6">${new Intl.NumberFormat('de-DE').format(prod.price)}</p>
-                                                                                </div>
-                                                                                <p className="mt-1 text-sm text-gray-500">{prod.model}</p>
+                                                                totalQuantity > 0 ? (
+                                                                    cart.map((prod) => (
+                                                                        <li key={prod.id} className="flex py-6">
+                                                                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                                <img
+                                                                                    src={prod.imageSrc}
+                                                                                    alt={`Imagen del producto ${prod.name}`}
+                                                                                    className="h-full w-full object-cover object-center"
+                                                                                />
                                                                             </div>
-                                                                            <div className="flex flex-1 items-end justify-between text-sm">
 
-                                                                                <div className='flex justify-center items-center gap-4'>
-                                                                                    <button className='text-gray-500 hover:text-black' onClick={() => decrementQuantity(prod.id)}>-</button>
-
-                                                                                    {prod.quantity > 1 ? (
-
-                                                                                        <p className="text-gray-500">
-                                                                                            {prod.quantity} unidades
-                                                                                        </p>
-
-                                                                                    ) : (
-
-                                                                                        <p className="text-gray-500">
-                                                                                            {prod.quantity} unidad
-                                                                                        </p>
-                                                                                    )
-
-                                                                                    }
-
-                                                                                    <button className='text-gray-500 hover:text-black' onClick={() => incrementQuantity(prod.id, prod.stock)}>+</button>
+                                                                            <div className="ml-4 flex flex-1 flex-col">
+                                                                                <div>
+                                                                                    <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                                        <h3>
+                                                                                            <Link to={`/item/${prod.id}`}>{prod.name}</Link>
+                                                                                        </h3>
+                                                                                        <p className="ml-6">${new Intl.NumberFormat('de-DE').format(prod.price)}</p>
+                                                                                    </div>
+                                                                                    <p className="mt-1 text-sm text-gray-500">{prod.model}</p>
                                                                                 </div>
+                                                                                <div className="flex flex-1 items-end justify-between text-sm">
 
-                                                                                <div className="flex">
-                                                                                    <button
-                                                                                        type="button"
-                                                                                        onClick={() => handleOnRemove(prod.id, prod.name)}
-                                                                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                                                                    >
-                                                                                        Eliminar
-                                                                                    </button>
+                                                                                    <div className='flex justify-center items-center gap-4'>
+                                                                                        <button className='text-gray-500 hover:text-black' onClick={() => decrementQuantity(prod.id)}>-</button>
+
+                                                                                        {prod.quantity > 1 ? (
+
+                                                                                            <p className="text-gray-500">
+                                                                                                {prod.quantity} unidades
+                                                                                            </p>
+
+                                                                                        ) : (
+
+                                                                                            <p className="text-gray-500">
+                                                                                                {prod.quantity} unidad
+                                                                                            </p>
+                                                                                        )
+
+                                                                                        }
+
+                                                                                        <button className='text-gray-500 hover:text-black' onClick={() => incrementQuantity(prod.id, prod.stock)}>+</button>
+                                                                                    </div>
+
+                                                                                    <div className="flex">
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            onClick={() => handleOnRemove(prod.id, prod.name)}
+                                                                                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                                        >
+                                                                                            Eliminar
+                                                                                        </button>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </li>
-                                                                ))
+                                                                        </li>
+                                                                    ))) : (
+                                                                    <div className='flex flex-col justify-center items-center mt-16'>
+                                                                        <img src="https://firebasestorage.googleapis.com/v0/b/clc-ecommerce.appspot.com/o/cart.webp?alt=media&token=8708a57c-132c-4ebb-8af8-852741f47c93" className='h-48 w-48' alt="" />
+                                                                        <span className='font-medium'>¡No tienes productos en el carrito!</span>
+                                                                    </div>
+
+                                                                )
+
                                                             }
 
 
@@ -161,35 +175,56 @@ const CartWidget = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                                                <div className="flex justify-between text-base font-medium text-gray-900">
-                                                    <p>Subtotal</p>
-                                                    <p>${new Intl.NumberFormat('de-DE').format(total)}</p>
-                                                </div>
-                                                <p className="mt-0.5 text-sm text-gray-500">El envío y los impuestos se calculan al finalizar la compra</p>
-                                                <div className="mt-6">
-                                                    <Link
-                                                        to={'/checkout'}
-                                                        onClick={() => setOpen(false)}
-                                                        className="flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm animacion-boton-indigo"
-                                                    >
-                                                        Finalizar compra
-                                                    </Link>
-                                                </div>
-                                                <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                                                    <p>
-                                                        o
+
+
+                                            {
+                                                totalQuantity > 0 ? (
+                                                    <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                                                        <div className="flex justify-between text-base font-medium text-gray-900">
+                                                            <p>Subtotal</p>
+                                                            <p>${new Intl.NumberFormat('de-DE').format(total)}</p>
+                                                        </div>
+                                                        <p className="mt-0.5 text-sm text-gray-500">El envío y los impuestos se calculan al finalizar la compra</p>
+                                                        <div className="mt-6">
+                                                            <Link
+                                                                to={'/checkout'}
+                                                                onClick={() => setOpen(false)}
+                                                                className="flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm animacion-boton-indigo"
+                                                            >
+                                                                Finalizar compra
+                                                            </Link>
+                                                        </div>
+                                                        <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                                            <p>
+                                                                o
+                                                                <button
+                                                                    type="button"
+                                                                    className="font-medium ml-1 text-indigo-600 hover:text-indigo-500"
+                                                                    onClick={() => setOpen(false)}
+                                                                >
+                                                                    Continuar comprando
+                                                                    <span aria-hidden="true"> &rarr;</span>
+                                                                </button>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+
                                                         <button
                                                             type="button"
-                                                            className="font-medium ml-1 text-indigo-600 hover:text-indigo-500"
                                                             onClick={() => setOpen(false)}
+                                                            className="flex items-center w-full justify-center rounded-md bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm animacion-boton-indigo"
                                                         >
                                                             Continuar comprando
-                                                            <span aria-hidden="true"> &rarr;</span>
                                                         </button>
-                                                    </p>
-                                                </div>
-                                            </div>
+
+                                                    </div>
+                                                )
+                                            }
+
+
+
                                         </div>
                                     </Dialog.Panel>
                                 </Transition.Child>

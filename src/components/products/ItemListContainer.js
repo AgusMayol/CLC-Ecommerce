@@ -10,7 +10,6 @@ import ItemSkeleton from './ItemSkeleton';
 const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isDataLoaded, setIsDataLoaded] = useState(false); // Agregado
 
     const { categoryId } = useParams();
 
@@ -48,14 +47,14 @@ const ItemListContainer = ({ greeting }) => {
                 console.log(error);
             })
             .finally(() => {
-                setIsDataLoaded(true);
                 setLoading(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' })
             });
     }, [categoryId]);
 
 
     return (
-        loading && !isDataLoaded ? (
+        loading ? (
             <ItemSkeleton />
         ) : (
             <div>
@@ -66,12 +65,12 @@ const ItemListContainer = ({ greeting }) => {
                 {
                     !categoryId ? (
                         <div className='mb-[150px] mt-8'>
-                            <h2 className="text-2xl font-bold ml-4 md:ml-16 mb-8 tracking-tight text-gray-900">Categorías</h2>
-                            <div className="flex flex-wrap justify-center gap-4">
+                            <h2 className="text-2xl font-bold sm:hidden text-center mb-8 text-gray-900">Categorías</h2>
+                            <div className="flex flex-wrap mt-16 sm:mt-0 justify-center gap-12 sm:gap-4">
                                 {
                                     categories.map(cat => {
                                         return (
-                                            <Link key={cat.id} style={{ backgroundImage: 'url(' + cat.image + ')', backgroundSize: 'cover' }} to={`/category/${cat.slug}`} className="w-full h-52 w-52 mx-4 md:w-80 md:h-80 transition ease-in-out duration-200 hover:scale-105">
+                                            <Link key={cat.id} style={{ backgroundImage: 'url(' + cat.image + ')', backgroundSize: 'cover' }} to={`/category/${cat.slug}`} className="h-96 w-96 sm:w-80 sm:h-80 mx-4 transition ease-in-out duration-200 hover:scale-105">
                                                 <div className='w-full h-full static inset-0 bg-black bg-opacity-30 flex justify-center items-center transition ease-in-out duration-200 hover:scale-105' >
                                                     <button type="button"
                                                         className="bg-red-700 rounded-lg py-2 px-4 font-semibold text-white text-sm">

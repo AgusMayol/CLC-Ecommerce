@@ -4,7 +4,7 @@ import { Dialog, Popover } from '@headlessui/react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../services/firebase/firebaseConfig';
 import { Menu, Transition } from '@headlessui/react';
-
+import Banner from './Banner';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import CartWidget from './CartWidget';
 import Categorias from './categorias';
@@ -36,18 +36,16 @@ const Navbar = () => {
         });
     }, []);
 
-
     return (
         <header className="bg-white shadow fixed left-0 top-0 w-full z-10">
-            <nav className="flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+            <Banner></Banner>
+            <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
 
                 <div className="flex">
                     <Link to={`/`} className="-m-1.5 p-1.5 flex justify-center align-items-center gap-2">
                         <img className="h-12 w-auto" src={logo} alt="" />
                     </Link>
                 </div>
-
-
 
                 {(LoggedIn && ruta.includes("/admin")) ? (
                     <Popover.Group className="hidden lg:flex lg:gap-x-8">

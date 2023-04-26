@@ -28,6 +28,7 @@ export default function ItemDetailContainer() {
             })
             .finally(() => {
                 setLoading(false)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
             })
     }, [itemId])
 
@@ -35,7 +36,7 @@ export default function ItemDetailContainer() {
         loading ? (
             <DetailSkeleton />
         ) : (
-            <div className="bg-white">
+            <div className="bg-white w-full">
                 <ItemDetail  {...product} />
             </div>
         )
